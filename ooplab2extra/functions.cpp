@@ -1,4 +1,5 @@
 #pragma once
+#define _CRT_SECURE_NO_WARNINGS
 #include <fstream>
 #include "functions.h"
 #include <cstring>
@@ -30,11 +31,12 @@ void computeFrequency(char input[1001], int arr[26])
         arr[i] = 0;
     
     for (short i = 0; input[i] != '\0'; i++)
-        if (!strchr(" ,.!?", input[i]))
-            if (input[i] >= 'A' && input[i] <= 'Z')
-                arr[(int)input[i] - 65]++;
-            else
-                arr[(int)input[i] - 97]++;
+    {
+        if (input[i] >= 'A' && input[i] <= 'Z')
+            arr[(int)input[i] - 65]++;
+        else if (input[i] >= 'a' && input[i] <= 'z')
+            arr[(int)input[i] - 97]++;
+    }
 }
 
 double computeChiSquared(int inputLen, double distribution[26], int frequency[26])
@@ -47,4 +49,40 @@ double computeChiSquared(int inputLen, double distribution[26], int frequency[26
     }
 
     return result;
+}
+
+void getDecodedText(char input[1001], double distribution[26])
+{
+    char bestDecodedText[1001];
+    double minChiSquared = -1;
+    int inputLen = strlen(input);
+
+    for (int step = 0; step < 25; step++)
+    {
+        for (int i = 0; input[i] != '\0'; i++)
+            if ((input[i] >= 'A' && input[i] <= 'Z') || (input[i] >= 'a' && input[i] <= 'z'))
+            {
+                if (input[i] == 'A')
+                    input[i] = 'Z';
+
+                else if (input[i] == 'a')
+                    input[i] = 'z';
+
+                else input[i]--;
+            }
+
+        int currentFrequency[26];
+        computeFrequency(input, currentFrequency);
+
+        double currentChiSquared = computeChiSquared(inputLen, distribution, currentFrequency);
+
+        if (minChiSquared == -1 || currentChiSquared < minChiSquared)
+        {
+            minChiSquared = currentChiSquared;
+            strcpy(bestDecodedText, input);
+        }
+        
+    }
+
+    strcpy(input, bestDecodedText);
 }

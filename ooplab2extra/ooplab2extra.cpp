@@ -13,5 +13,8 @@ int main()
     int frequency[26];
     computeFrequency(text, frequency);
 
+    getDecodedText(text, distribution);
+    cout << text;
+
     return 0;
 }
