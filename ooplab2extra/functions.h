@@ -1,8 +1,8 @@
 #pragma once
 using namespace std;
 
-void readDistributionFromFile(double arr[26]);
-void readInputFromFile(char input[1001]);
-void computeFrequency(char input[1001], int arr[26]);
-double computeChiSquared(int inputLen, double distribution[26], int frequency[26]);
-void getDecodedText(char input[1001], double distribution[26]);
+void readDistributionFromFile(double distribution[26]);
+void readInputFromFile(string &input);
+void computeFrequency(string input, int frequency[26]);
+double computeChiSquared(string input, double distribution[26], int frequency[26]);
+string getDecodedText(string input, double distribution[26]);

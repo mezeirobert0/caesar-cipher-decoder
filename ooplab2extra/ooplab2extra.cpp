@@ -7,14 +7,10 @@ int main()
     double distribution[26];
     readDistributionFromFile(distribution);
 
-    char text[1001];
+    string text;
     readInputFromFile(text);
 
-    int frequency[26];
-    computeFrequency(text, frequency);
-
-    getDecodedText(text, distribution);
-    cout << text;
+    cout << getDecodedText(text, distribution) << '\n';
 
     return 0;
 }
