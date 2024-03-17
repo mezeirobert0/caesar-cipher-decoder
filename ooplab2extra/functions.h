@@ -6,3 +6,6 @@ void readInputFromFile(string &input);
 void computeFrequency(string input, int frequency[26]);
 double computeChiSquared(string input, double distribution[26], int frequency[26]);
 string getDecodedText(string input, double distribution[26]);
+
+void print_options();
+void run_console();

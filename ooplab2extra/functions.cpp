@@ -3,6 +3,8 @@
 #include <fstream>
 #include "functions.h"
 #include <string>
+#include <iostream>
+#include <iomanip>
 using namespace std;
 
 void readDistributionFromFile(double distribution[26])
@@ -91,4 +93,124 @@ string getDecodedText(string input, double distribution[26])
     }
 
     return bestDecodedText;
+}
+
+void print_options()
+{
+    string options[6];
+    options[0] = "0. View options";
+    options[1] = "1. Print frequency of letters in current text";
+    options[2] = "2. Print distribution of letters in current text";
+    options[3] = "3. Decode the text and print the most likely message";
+    options[4] = "4. Add a new distribution(read from keyboard)";
+    options[5] = "5. Add a new encoded message(read from keyboard)";
+
+    for (string option : options)
+        cout << option << '\n';
+    cout << '\n';
+}
+
+void run_console()
+{
+    double distribution[26];
+    int frequency[26];
+
+    string text;
+    string decodedText;
+
+    bool computedFrequency = false;
+    bool decoded = false;
+
+    readDistributionFromFile(distribution);
+    readInputFromFile(text);
+
+    cout << "Welcome to Caesar's Cipher application!\n\n";
+
+    print_options();
+    while (true)
+    {
+        string opt;
+        cout << "Choose an option (0-5): ";
+        cin >> opt; std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // discards the rest of the line 
+        cout << '\n';
+
+        if (opt == "0")
+            print_options();
+
+        else if (opt == "1")
+        {
+            if (!computedFrequency)
+            {
+                computeFrequency(text, frequency);
+                computedFrequency = true;
+            }
+
+            cout << "Frequency of letters in text:\n";
+            for (short i = 0; i < 26; i++)
+                cout << (char)(i + 65) << ' ' << frequency[i] << '\n';
+
+            cout << '\n';
+        }
+
+        else if (opt == "2")
+        {
+            if (!computedFrequency)
+            {
+                computeFrequency(text, frequency);
+                computedFrequency = true;
+            }
+
+            int numberOfLetters = text.size();
+            for (char ch : text)
+                if (!((ch >= 'A' && ch <= 'Z') || (ch >= 'a' && ch <= 'z')))
+                    numberOfLetters--;
+
+
+            cout << "Distribution of letters in text (%):\n";
+            for (short i = 0; i < 26; i++)
+                cout << (char)(i + 65) << ' ' << fixed << setprecision(2) << frequency[i] * 100.0 / numberOfLetters << '\n';
+            
+            cout<<'\n';
+        }
+
+        else if (opt == "3")
+        {
+            if (!computedFrequency)
+            {
+                computeFrequency(text, frequency);
+                computedFrequency = true;
+            }
+
+            if (!decoded)
+            {
+                decodedText = getDecodedText(text, distribution);
+                decoded = true;
+            }
+
+            cout << "Decoded text:\n" << decodedText << "\n\n";
+        }
+
+        else if (opt == "4")
+        {
+            decoded = false;
+
+            for (short i = 0; i < 26; i++)
+            {
+                cout << (char)(i + 65) << ' ';
+                cin >> distribution[i]; std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // discards the rest of the line 
+                cout << '\n';
+            }
+        }
+
+        else if (opt == "5")
+        {
+            computedFrequency = false;
+
+            cout << "Enter the encoded message (no enters):\n";
+            getline(cin, text);
+            cout << '\n';
+        }
+        
+        else break;
+    }
 }

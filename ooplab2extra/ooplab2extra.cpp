@@ -4,13 +4,7 @@ using namespace std;
 
 int main()
 {
-    double distribution[26];
-    readDistributionFromFile(distribution);
-
-    string text;
-    readInputFromFile(text);
-
-    cout << getDecodedText(text, distribution) << '\n';
+    run_console();
 
     return 0;
 }
