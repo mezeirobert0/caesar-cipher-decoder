@@ -5,8 +5,10 @@
 #include <string>
 #include <iostream>
 #include <iomanip>
+#include <limits>
 using namespace std;
 
+// Function for reading the distribution of letters in an alphabet, from the file distribution.txt
 void readDistributionFromFile(double distribution[26])
 {
     ifstream fin("distribution.txt");
@@ -19,6 +21,7 @@ void readDistributionFromFile(double distribution[26])
     fin.close();
 }
 
+// Function for reading the encoded message, from the file input.txt
 void readInputFromFile(string &input)
 {
     input = "";
@@ -29,6 +32,7 @@ void readInputFromFile(string &input)
     fin.close();
 }
 
+// Function for computing the frequency of each letter in the current message
 void computeFrequency(string input, int frequency[26])
 {
     // A - 65, a - 97
@@ -44,6 +48,8 @@ void computeFrequency(string input, int frequency[26])
     }
 }
 
+// function for computing the chi squared distance between the distribution of letters in the aplhabet
+// and the current frequency of letters in the current message
 double computeChiSquared(string input, double distribution[26], int frequency[26])
 {
     int inputLen = input.size();
@@ -57,6 +63,7 @@ double computeChiSquared(string input, double distribution[26], int frequency[26
     return result;
 }
 
+// Function that successfully decodes Caesar's cipher
 string getDecodedText(string input, double distribution[26])
 {
     int currentFrequency[26];
@@ -95,21 +102,22 @@ string getDecodedText(string input, double distribution[26])
     return bestDecodedText;
 }
 
+// Functions for printing to console the options available to the end user
 void print_options()
 {
-    string options[6];
+    string options[5];
     options[0] = "0. View options";
     options[1] = "1. Print frequency of letters in current text";
     options[2] = "2. Print distribution of letters in current text";
     options[3] = "3. Decode the text and print the most likely message";
-    options[4] = "4. Add a new distribution(read from keyboard)";
-    options[5] = "5. Add a new encoded message(read from keyboard)";
+    options[4] = "4. Add a new encoded message(read from keyboard)";
 
     for (string option : options)
         cout << option << '\n';
     cout << '\n';
 }
 
+// Function that enables the user to interact with the functions the program provides
 void run_console()
 {
     double distribution[26];
@@ -169,8 +177,8 @@ void run_console()
             cout << "Distribution of letters in text (%):\n";
             for (short i = 0; i < 26; i++)
                 cout << (char)(i + 65) << ' ' << fixed << setprecision(2) << frequency[i] * 100.0 / numberOfLetters << '\n';
-            
-            cout<<'\n';
+
+            cout << '\n';
         }
 
         else if (opt == "3")
@@ -192,25 +200,17 @@ void run_console()
 
         else if (opt == "4")
         {
-            decoded = false;
-
-            for (short i = 0; i < 26; i++)
-            {
-                cout << (char)(i + 65) << ' ';
-                cin >> distribution[i]; std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // discards the rest of the line 
-                cout << '\n';
-            }
-        }
-
-        else if (opt == "5")
-        {
             computedFrequency = false;
+            decoded = false;
 
             cout << "Enter the encoded message (no enters):\n";
             getline(cin, text);
             cout << '\n';
         }
-        
-        else break;
+
+        else if (opt == "exit" || opt == "close")
+            break;
+
+        else cout << "Invalid option!\n\n";
     }
 }
