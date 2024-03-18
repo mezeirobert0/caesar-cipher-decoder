@@ -108,7 +108,7 @@ void print_options()
     string options[5];
     options[0] = "0. View options";
     options[1] = "1. Print frequency of letters in current text";
-    options[2] = "2. Print distribution of letters in current text";
+    options[2] = "2. Print distribution of letters in current text (%)";
     options[3] = "3. Decode the text and print the most likely message";
     options[4] = "4. Add a new encoded message (read from keyboard)";
 

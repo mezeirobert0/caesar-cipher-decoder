@@ -3,6 +3,7 @@
 This is a console app for decoding messages that have been encoded with Caesar's Cipher. \
 The program uses a brute force method, using frequency analysis, that tests all the possible displacements and returns the most likely decryption of a text.
 
+
 ## Pre-requisites
 * C/C++ compiler (e.g. MinGW GCC, MSVC, Clang) or an IDE (e.g. Visual Studio)
 * Git 
@@ -55,3 +56,18 @@ By default the encoded text is in the file `input.txt`. Therefore, to decode a n
 Should the user enter anything except a number from 0 to 4, they are prompted with the message `Invalid option!` and are given a new chance to enter an option.
 
 Also, when writing `close` or `exit` when asked to choose an option, the program terminates.
+
+## Limitation
+
+The program provides the user with the most likely decoded message *according to the algorithm* - The decoded text that has the minimum Chi Squared distance compared to the encoded message. However, in some cases, there are multiple potential messages that satisfy this condition (but nearly always only one is right). Thus, for smaller size inputs (usually single words), the result may be unexpected. Example for decoding the word `ifmmp` (the output should be `hello`) :
+```
+Choose an option (0-5): 4
+
+Enter the encoded message (no enters):
+ifmmp
+
+Choose an option (0-5): 3
+
+Decoded text:
+wtaad
+```
