@@ -110,7 +110,7 @@ void print_options()
     options[1] = "1. Print frequency of letters in current text";
     options[2] = "2. Print distribution of letters in current text";
     options[3] = "3. Decode the text and print the most likely message";
-    options[4] = "4. Add a new encoded message(read from keyboard)";
+    options[4] = "4. Add a new encoded message (read from keyboard)";
 
     for (string option : options)
         cout << option << '\n';
