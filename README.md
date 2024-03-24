@@ -13,7 +13,7 @@ The program uses a brute force method, using frequency analysis, that tests all 
 Open the terminal, navigate to the desired location of the project using `cd` and clone the repository using the following command:
 
 ```bash
-git clone https://github.com/mezeirobert0/ooplab2extra.git
+git clone https://github.com/mezeirobert0/caesar-cipher-decoder.git
 ```
 
 ## Running the app
@@ -24,7 +24,7 @@ Double-click on `ooplab2extra.sln` after opening the folder of the project
 
 ### Terminal
 
-* First time: open the folder `..\ooplab2extra\ooplab2extra` in terminal (or navigate to it using `cd`) and run the following command:
+* First time: open the folder `..\caesar-cipher-decoder\ooplab2extra` in terminal (or navigate to it using `cd`) and run the following command:
 ```bash
 gcc -o app.exe ooplab2extra.cpp functions.cpp -lstdc++
 ```
