@@ -20,7 +20,7 @@ git clone https://github.com/mezeirobert0/caesar-cipher-decoder.git
 
 ### Visual Studio
 
-Double-click on `ooplab2extra.sln` after opening the folder of the project
+Double-click on `ooplab2extra.sln` after opening the folder of the project and debug the program.
 
 ### Terminal
 
